@@ -5,39 +5,7 @@
 	$d="100";
 	$emelt="0";
 	$alap1="0";
-	$alap2="0";
-	
-
-if(isset($_POST['info'])){
-	$num1=$_POST['n1'];
-	$num2=$_POST['n2'];
-	$num3=$_POST['n3'];
-	$num4=$_POST['n4'];
-	$num5=$_POST['n5'];
-	$oprnd=$_POST['info'];
-	if (empty($num1) || empty($num2)|| empty($num3)|| empty($num4)|| empty($num5))
-		
-		echo "Kérem töltse ki a szükséges mezőket.";
-		
-	else if($oprnd=="ELTE IK - Programtervező")
-		$alap1=$num1*2+$num2*2+$num3+$num4+$num5;
-}
-if(isset($_POST['anglisz'])){
-	$num1=$_POST['n1'];
-	$num2=$_POST['n2'];
-	$num3=$_POST['n3'];
-	$num4=$_POST['n4'];
-	$num5=$_POST['n5'];
-	$oprnd=$_POST['anglisz'];
-	if (empty($num1) || empty($num2)|| empty($num3)|| empty($num4)|| empty($num5))
-		
-		echo "Kérem töltse ki a szükséges mezőket.";
-	
-	else if($oprnd=="PPKE BTK – Anglisztika")
-		$alap2=$num1*2+$num2*2+$num3+$num4+$num5;	
-}
-	
-		
+	$alap2="0";	
 
 if(isset($_POST['vizsga'])){
     $emelt=$emelt+$a;
@@ -111,7 +79,7 @@ else{
 		}
 		th,td {
 			border: 1px solid black;
-			width: 50%;
+			width: 40%;
 			text-align: left;
 		}
 }
@@ -122,19 +90,49 @@ else{
 
 <div class="container">
 <form method="post" action="">
-<h1>Felvételi eredmény számítás</h1><br>
-
+<h1>Felvételi eredmény számítás</h1>
+<?php
+if(isset($_POST['info'])){
+	$num1=$_POST['n1'];
+	$num2=$_POST['n2'];
+	$num3=$_POST['n3'];
+	$num4=$_POST['n4'];
+	$num5=$_POST['n5'];
+	$oprnd=$_POST['info'];
+	if (empty($num1) || empty($num5))
+		
+		echo "Kérem töltse ki a szükséges mezőket:(Matematika, Informatika).";
+		
+	else if($oprnd=="ELTE IK - Programtervező")
+		$alap1=$num1*2+$num5*2;
+}
+if(isset($_POST['anglisz'])){
+	$num1=$_POST['n1'];
+	$num2=$_POST['n2'];
+	$num3=$_POST['n3'];
+	$num4=$_POST['n4'];
+	$num5=$_POST['n5'];
+	$oprnd=$_POST['anglisz'];
+	if (empty($num2)||empty($num4))
+		
+		echo "Kérem töltse ki a szükséges mezőket:(Angol, Történelem).";
+	
+	else if($oprnd=="PPKE BTK – Anglisztika")
+		$alap2=$num2*2+$num4*2;
+}
+?>
+<br><br>
 <table class="table">
   <tr>
     <th>Tárgy: (%)</th>
     <th>Emelt szint?(50p)</th>
   </tr> 
  <tr>
-    <td>Matematika(Kötelező):<input name="n1" value=""></th>
+    <td>Matematika:<input name="n1" value=""></th>
     <td>Emelt:<input type="checkbox" name="emelt" value="emelt"><br></th>
   </tr>
   <tr>
-    <td>Angol/Német (Kötelező):<input name="n2" value=""></td>
+    <td>Angol:<input name="n2" value=""></td>
     <td>Emelt:<input type="checkbox" name="emelt1" value="emelt"></td>
   </tr>
   <tr>
@@ -147,8 +145,12 @@ else{
   </tr>
   </tr>
    <tr>
-    <td>Informatika/Fizika:<input name="n5" value=""></td>
+    <td>Informatika:<input name="n5" value=""></td>
     <td>Emelt:<input type="checkbox" name="emelt4" value="emelt"></td>
+  </tr>
+     <tr>
+    <td>Fizika:<input name="n6" value=""></td>
+    <td>Emelt:<input type="checkbox" name="emelt5" value="emelt"></td>
   </tr>
     <tr>
     <td>Nyelvvizsga(középfok):  <input type="checkbox" name="vizsga" value="közép"><br></td>
@@ -164,18 +166,18 @@ else{
 Eredmény: <input type='text' value="<?php echo $alap1+$alap2+$sum; ?>"><br>
 
 <?php 
-if (isset($_POST['info']) || (isset($_POST['anglisz'])  && $num1 < 20 || $num2 < 20|| $num3 < 20|| $num4 < 20|| $num5 < 20)){
+if (isset($_POST['info'])&&($num1 < 20 || $num5 < 20) || (isset($_POST['anglisz'])  && ($num2 < 20|| $num4 < 20))){
 				
 			echo  "A pontszámítás nem lehetséges a 20% elérésének hiányában.";
 }	
 
-if ($alap1+$alap2+$sum < "450")
+if (isset($_POST['info']) && ($alap1+$alap2+$sum < "250") || (isset($_POST['anglisz']) && ($alap1+$alap2+$sum < "300")))
 		
 			echo "hiba, nem lehetséges a pontszámítás a kötelező érettségi tárgyak hiánya miatt";	
 				
-			else 
+	else 
 			
-			echo  "" . $alap1+$alap2 . " alappont + (" . $sum ." többletpont.)";
+			echo  "Gratulálunk sikerült elérni a ponthatárt:", $alap1+$alap2 . " alappont + (" . $sum ." többletpont.)";
 	
 ?>	
 	
