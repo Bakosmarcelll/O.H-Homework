@@ -1,0 +1,185 @@
+<?php
+	$a="28";
+	$b="40";
+	$c="50";
+	$d="100";
+	$emelt="0";
+	$alap1="0";
+	$alap2="0";
+	
+
+if(isset($_POST['info'])){
+	$num1=$_POST['n1'];
+	$num2=$_POST['n2'];
+	$num3=$_POST['n3'];
+	$num4=$_POST['n4'];
+	$num5=$_POST['n5'];
+	$oprnd=$_POST['info'];
+	if (empty($num1) || empty($num2)|| empty($num3)|| empty($num4)|| empty($num5))
+		
+		echo "Kérem töltse ki a szükséges mezőket.";
+		
+	else if($oprnd=="ELTE IK - Programtervező")
+		$alap1=$num1*2+$num2*2+$num3+$num4+$num5;
+}
+if(isset($_POST['anglisz'])){
+	$num1=$_POST['n1'];
+	$num2=$_POST['n2'];
+	$num3=$_POST['n3'];
+	$num4=$_POST['n4'];
+	$num5=$_POST['n5'];
+	$oprnd=$_POST['anglisz'];
+	if (empty($num1) || empty($num2)|| empty($num3)|| empty($num4)|| empty($num5))
+		
+		echo "Kérem töltse ki a szükséges mezőket.";
+	
+	else if($oprnd=="PPKE BTK – Anglisztika")
+		$alap2=$num1*2+$num2*2+$num3+$num4+$num5;	
+}
+	
+		
+
+if(isset($_POST['vizsga'])){
+    $emelt=$emelt+$a;
+}
+if(isset($_POST['vizsga2'])){
+    $emelt=$emelt+$b;
+}
+if(isset($_POST['emelt'])){
+    $emelt=$emelt+$c;
+}
+if(isset($_POST['emelt1'])){
+    $emelt=$emelt+$c;
+}
+if(isset($_POST['emelt2'])){
+    $emelt=$emelt+$c;
+}
+if(isset($_POST['emelt3'])){
+    $emelt=$emelt+$c;
+}
+if(isset($_POST['emelt4'])){
+    $emelt=$emelt+$c;
+}
+if(isset($_POST['emelt5'])){
+    $emelt=$emelt+$c;
+}
+if ($emelt > "$d"){
+	$sum=100;
+	}
+else{
+	$sum=$emelt;
+}
+
+?>
+<html>
+<head>
+	<style type="text/css">
+		.container
+		{
+			left: 25%;
+			padding: 10px;
+			text-align: center;
+			border: 1px solid green;
+			
+		}
+		input, select {
+  			width: 40%;
+  			padding: 12px 20px;
+  			margin: 8px 0;
+  			display: inline-block;
+  			border: 1px solid #ccc;
+  			border-radius: 4px;
+  			box-sizing: border-box;
+		}
+		
+		input[type=submit] {
+  			width: 25%;
+ 		 	background-color: #191970;
+  			color: white;
+  			padding: 24px 35px;
+  			margin: 8px 0;
+  			border: none;
+	 	 	border-radius: 4px;
+  			cursor: pointer;
+		}
+		
+		.table {
+			border: 1px solid black;
+			display: inline-block;
+			width: 50%;
+			
+		}
+		th,td {
+			border: 1px solid black;
+			width: 50%;
+			text-align: left;
+		}
+}
+	</style>
+</head>
+
+<body>
+
+<div class="container">
+<form method="post" action="">
+<h1>Felvételi eredmény számítás</h1><br>
+
+<table class="table">
+  <tr>
+    <th>Tárgy: (%)</th>
+    <th>Emelt szint?(50p)</th>
+  </tr> 
+ <tr>
+    <td>Matematika(Kötelező):<input name="n1" value=""></th>
+    <td>Emelt:<input type="checkbox" name="emelt" value="emelt"><br></th>
+  </tr>
+  <tr>
+    <td>Angol/Német (Kötelező):<input name="n2" value=""></td>
+    <td>Emelt:<input type="checkbox" name="emelt1" value="emelt"></td>
+  </tr>
+  <tr>
+    <td>Magyar:<input name="n3" value=""></td>
+    <td>Emelt:<input type="checkbox" name="emelt2" value="emelt"></td>
+  </tr>
+    <tr>
+    <td>Történelem:<input name="n4" value=""></td>
+    <td>Emelt:<input type="checkbox" name="emelt3" value="emelt"></td>
+  </tr>
+  </tr>
+   <tr>
+    <td>Informatika/Fizika:<input name="n5" value=""></td>
+    <td>Emelt:<input type="checkbox" name="emelt4" value="emelt"></td>
+  </tr>
+    <tr>
+    <td>Nyelvvizsga(középfok):  <input type="checkbox" name="vizsga" value="közép"><br></td>
+	<td>Nyelvvizsga(felsőfok):  <input type="checkbox" name="vizsga2" value="közép"><br></td>
+  </tr>
+</table>
+
+<br>
+<input type="submit" name="info" value="ELTE IK - Programtervező">
+<input type="submit" name="anglisz" value="PPKE BTK – Anglisztika">
+<br>
+
+Eredmény: <input type='text' value="<?php echo $alap1+$alap2+$sum; ?>"><br>
+
+<?php 
+if (isset($_POST['info']) || (isset($_POST['anglisz'])  && $num1 < 20 || $num2 < 20|| $num3 < 20|| $num4 < 20|| $num5 < 20)){
+				
+			echo  "A pontszámítás nem lehetséges a 20% elérésének hiányában.";
+}	
+
+if ($alap1+$alap2+$sum < "450")
+		
+			echo "hiba, nem lehetséges a pontszámítás a kötelező érettségi tárgyak hiánya miatt";	
+				
+			else 
+			
+			echo  "" . $alap1+$alap2 . " alappont + (" . $sum ." többletpont.)";
+	
+?>	
+	
+</form>
+	</div>
+</body>
+</html>
