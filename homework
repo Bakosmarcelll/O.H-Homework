@@ -1,4 +1,5 @@
 <?php
+	$x="2";
 	$a="28";
 	$b="40";
 	$c="50";
@@ -101,10 +102,10 @@ if(isset($_POST['info'])){
 	$oprnd=$_POST['info'];
 	if (empty($num1) || empty($num5))
 		
-		echo "Kérem töltse ki a szükséges mezőket:(Matematika, Informatika).";
+		echo "Kérem töltse ki a kötelező mezőket:(Matematika, Informatika).";
 		
 	else if($oprnd=="ELTE IK - Programtervező")
-		$alap1=$num1*2+$num5*2;
+		$alap1=$num1*$x+$num5*$x;
 }
 if(isset($_POST['anglisz'])){
 	$num1=$_POST['n1'];
@@ -115,10 +116,10 @@ if(isset($_POST['anglisz'])){
 	$oprnd=$_POST['anglisz'];
 	if (empty($num2)||empty($num4))
 		
-		echo "Kérem töltse ki a szükséges mezőket:(Angol, Történelem).";
+		echo "Kérem töltse ki a kötelező mezőket:(Angol, Történelem).";
 	
 	else if($oprnd=="PPKE BTK – Anglisztika")
-		$alap2=$num2*2+$num4*2;
+		$alap2=$num2*$x+$num4*$x;
 }
 ?>
 <br><br>
